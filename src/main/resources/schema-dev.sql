@@ -1,4 +1,4 @@
--- 기존 song 테이블 제거
+-- 기존 테이블 제거 (사용 시 disable 주석 처리)
 DROP TABLE IF EXISTS song_artist;
 DROP TABLE IF EXISTS song;
 DROP TABLE IF EXISTS artist;

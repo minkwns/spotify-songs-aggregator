@@ -24,4 +24,4 @@ app:
 
 ingestion:
   file:
-    path: classpath:data/songs.json
+    path: data/songs.json
