@@ -1,0 +1,27 @@
+
+spring:
+  application:
+    name: spotify-aggregator
+
+  r2dbc:
+    url: r2dbc:mysql://localhost:3307/spotify
+    username: root
+    password: admin1234
+
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework.r2dbc.connection.init: DEBUG
+    org.springframework.r2dbc.connection.init.ScriptUtils: DEBUG
+
+# Application properties for the Spotify Aggregator
+
+app:
+  schema:
+    locations: classpath:schema-dev.sql
+
+ingestion:
+  file:
+    path: classpath:data/songs.json
