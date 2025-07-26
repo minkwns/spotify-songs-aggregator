@@ -1,0 +1,10 @@
+
+spring:
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=-1;MODE=MYSQL
+    username: admin
+    password: pass
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-dev.sql
