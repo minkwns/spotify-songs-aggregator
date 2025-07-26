@@ -20,7 +20,7 @@ logging:
 
 app:
   schema:
-    locations: classpath:schema-dev.sql
+    locations: schema-dev.sql
 
 ingestion:
   file:
