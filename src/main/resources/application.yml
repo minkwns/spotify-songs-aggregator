@@ -20,8 +20,8 @@ logging:
 
 app:
   schema:
-    locations: classpath:schema-dev.sql
+    locations: schema-dev.sql
 
 ingestion:
   file:
-    path: classpath:data/songs.json
+    path: data/songs.json

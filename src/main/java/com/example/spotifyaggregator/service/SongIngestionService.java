@@ -145,6 +145,7 @@ public class SongIngestionService {
                 .title(node.path("song").asText())
                 .album(node.path("Album").asText())
                 .releaseDate(parseReleaseDate(node.path("Release Date").asText()))
+                .releaseYear(parseReleaseDate(node.path("Release Date").asText()).getYear())
                 .genre(node.path("Genre").asText())
                 .explicit("Yes".equalsIgnoreCase(node.path("Explicit").asText()))
                 .popularity(node.path("Popularity").asInt())

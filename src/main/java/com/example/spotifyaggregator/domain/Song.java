@@ -24,6 +24,7 @@ public class Song {
     private String title;
     private String album;
     private LocalDate releaseDate;
+    private Integer releaseYear;
     private String genre;
     private Boolean explicit;
     private Integer popularity;
