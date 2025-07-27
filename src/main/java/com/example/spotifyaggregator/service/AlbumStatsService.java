@@ -3,6 +3,7 @@ package com.example.spotifyaggregator.service;
 import com.example.spotifyaggregator.dto.AlbumStatsByArtistResponse;
 import com.example.spotifyaggregator.dto.AlbumStatsByYearResponse;
 import com.example.spotifyaggregator.dto.PagedResponse;
+import com.example.spotifyaggregator.exception.AlbumStatsNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
@@ -97,7 +98,11 @@ private final DatabaseClient databaseClient;
                         row.get("album_count", Long.class)
                 ))
                 .all()
-                .collectList();
+                .collectList()
+                .flatMap(list -> list.isEmpty()
+                        ? Mono.error(new AlbumStatsNotFoundException())
+                        : Mono.just(list)
+                );;
 
         Mono<Long> countMono = databaseClient.sql(countSql)
                 .bind("artist", artist)
