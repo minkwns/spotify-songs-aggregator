@@ -31,11 +31,14 @@ dependencies {
 	testImplementation("io.r2dbc:r2dbc-h2")
 	testImplementation("com.h2database:h2")
 	compileOnly("org.projectlombok:lombok")
+	testCompileOnly("org.projectlombok:lombok")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
 	runtimeOnly("io.asyncer:r2dbc-mysql:1.0.2")  // R2DBC 드라이버
 	runtimeOnly("com.mysql:mysql-connector-j")        // JDBC 드라이버
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
+	testImplementation("org.testcontainers:junit-jupiter")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
