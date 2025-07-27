@@ -2,8 +2,6 @@ package com.example.spotifyaggregator.service;
 
 import com.example.spotifyaggregator.dto.SongIngestionResult;
 import com.example.spotifyaggregator.dto.SongWithArtists;
-import com.example.spotifyaggregator.exception.ErrorCode;
-import com.example.spotifyaggregator.exception.SongIngestionException;
 import com.example.spotifyaggregator.repository.ArtistRepository;
 import com.example.spotifyaggregator.repository.SongArtistRepository;
 import com.example.spotifyaggregator.repository.SongRepository;
@@ -76,7 +74,7 @@ public class SongIngestionService {
                             try {
                                 reader.close();
                             } catch (IOException e) {
-                                throw new SongIngestionException(ErrorCode.SONG_INGESTION_ERROR);
+                                throw new RuntimeException("BufferedReader closing 에 실패하였습니다. ", e);
                             }
                         }
                 )
