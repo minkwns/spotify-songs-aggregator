@@ -1,4 +1,7 @@
-# Spotify Aggregator
+# Spotify Aggregator 
+- https://github.com/minkwns/spotify-songs-aggregator
+<br>
+<br>
 
 Spotify 을 기반으로 하는 노래 메타데이터를 정규화하여 DB에 적재하고, 다양한 통계 및 좋아요 기반 랭킹 정보를 제공하는 WebFlux 기반 Aggregator 프로젝트입니다.
 
