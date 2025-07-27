@@ -1,6 +1,7 @@
 package com.example.spotifyaggregator.controller;
 
 import com.example.spotifyaggregator.dto.CommonResponse;
+import com.example.spotifyaggregator.dto.SongLikeCount;
 import com.example.spotifyaggregator.dto.SongLikeAck;
 import com.example.spotifyaggregator.service.SongLikeService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +34,14 @@ public class SongLikeController {
             @RequestHeader("User-Id") Long userId
     ) {
         return songLikeService.unlikeSong(songId, userId)
+                .map(CommonResponse::success)
+                .map(ResponseEntity::ok);
+    }
+
+    @GetMapping("/top-liked")
+    public Mono<ResponseEntity<CommonResponse<List<SongLikeCount>>>> getTopLikedSongs() {
+        return songLikeService.getTop10LikedSongsLastHour()
+                .collectList()
                 .map(CommonResponse::success)
                 .map(ResponseEntity::ok);
     }
