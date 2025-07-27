@@ -1,6 +1,8 @@
 package com.example.spotifyaggregator.service;
 
 import com.example.spotifyaggregator.dto.SongLikeAck;
+import com.example.spotifyaggregator.exception.ErrorCode;
+import com.example.spotifyaggregator.exception.SongLikeException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,11 +113,11 @@ class SongLikeServiceTest {
         Mono<SongLikeAck> result = songLikeService.unlikeSong(songId, userId);
 
         StepVerifier.create(result)
-                .assertNext(ack -> {
-                    log.info("응답: {}", ack);
-                    assertThat(ack.songId()).isEqualTo(songId);
-                    assertThat(ack.message()).contains("좋아요를 누르지 않으셨습니다.");
+                .expectErrorSatisfies(error -> {
+                    assertThat(error).isInstanceOf(SongLikeException.class);
+                    SongLikeException ex = (SongLikeException) error;
+                    assertThat(ex.getErrorCode()).isEqualTo(ErrorCode.SONG_LIKE_NOT_EXISTS);
                 })
-                .verifyComplete();
+                .verify();
     }
 }

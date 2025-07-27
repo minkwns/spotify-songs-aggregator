@@ -33,6 +33,9 @@ class AlbumStatsServiceTest {
 
     @BeforeEach
     void setUp() {
+        songArtistRepository.deleteAll().block();
+        songRepository.deleteAll().block();
+        artistRepository.deleteAll().block();
 
         // 더미 데이터 삽입
         Song song1 = Song.builder().isrc("ISRC001").title("Hello1").album("ALB1").releaseDate(LocalDate.of(2021, 5, 1)).releaseYear(2021).build();
@@ -58,7 +61,7 @@ class AlbumStatsServiceTest {
                                                 SongArtist.builder().songId(s1.getId()).artistId(artistAId).build(),
                                                 SongArtist.builder().songId(s2.getId()).artistId(artistAId).build(),
                                                 SongArtist.builder().songId(s3.getId()).artistId(artistBId).build()
-                                        )).then(); // ✅ 최종 Mono<Void>
+                                        )).then();
                                     });
                         })
         ).verifyComplete();
