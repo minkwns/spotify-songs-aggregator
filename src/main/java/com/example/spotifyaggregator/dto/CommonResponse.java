@@ -1,5 +1,8 @@
 package com.example.spotifyaggregator.dto;
 
+import org.springframework.http.HttpStatus;
+import com.example.spotifyaggregator.exception.ErrorCode;
+
 public record CommonResponse<T>(
         boolean success,
         String code,
@@ -12,6 +15,10 @@ public record CommonResponse<T>(
 
     public static <T> CommonResponse<T> failure(String code, String message) {
         return new CommonResponse<>(false, code, message, null);
+    }
+
+    public static <T> CommonResponse<T> error(ErrorCode errorCode, T payload) {
+        return new CommonResponse<>(false, errorCode.getCode(), errorCode.getMessage(), payload);
     }
 }
 

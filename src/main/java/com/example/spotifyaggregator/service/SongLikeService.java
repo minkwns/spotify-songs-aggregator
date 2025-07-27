@@ -1,5 +1,7 @@
 package com.example.spotifyaggregator.service;
 
+import com.example.spotifyaggregator.exception.ErrorCode;
+import com.example.spotifyaggregator.exception.SongLikeException;
 import com.example.spotifyaggregator.repository.SongLikeRepository;
 import com.example.spotifyaggregator.dto.SongLikeCount;
 import com.example.spotifyaggregator.dto.SongLikeAck;
@@ -37,7 +39,7 @@ public class SongLikeService {
         return songLikeRepository.existsByUserIdAndSongId(userId, songId)
                 .flatMap(exists -> {
                     if (exists) {
-                        return Mono.just(new SongLikeAck(songId, "이미 좋아요를 누르셨습니다."));
+                        return Mono.error(new SongLikeException(ErrorCode.SONG_LIKE_EXISTS));
                     }
 
                     return databaseClient.sql("INSERT INTO song_like (user_id, song_id, liked_at) VALUES (:userId, :songId, :likedAt)")
@@ -59,7 +61,7 @@ public class SongLikeService {
         return songLikeRepository.existsByUserIdAndSongId(userId, songId)
                 .flatMap(exists -> {
                     if (!exists) {
-                        return Mono.just(new SongLikeAck(songId, "좋아요를 누르지 않으셨습니다."));
+                        return Mono.error(new SongLikeException(ErrorCode.SONG_LIKE_NOT_EXISTS));
                     }
 
                     return songLikeRepository.deleteByUserIdAndSongId(userId, songId)
